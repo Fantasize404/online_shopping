@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: online-shopping
+  datasource:
+    url: jdbc:mysql://localhost:3306/onlineshopping
+    username: user_name
+    password: user_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true

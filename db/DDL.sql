@@ -1,0 +1,37 @@
+CREATE DATABASE IF NOT EXISTS onlineshopping;
+
+USE onlineshopping;
+
+CREATE TABLE IF NOT EXISTS Member (
+    MemberID VARCHAR(50) PRIMARY KEY COMMENT '會員編號',
+    Account VARCHAR(50) UNIQUE NOT NULL COMMENT '登入帳號',
+    Password VARCHAR(255) NOT NULL COMMENT '登入密碼',
+    Role VARCHAR(20) NOT NULL DEFAULT 'USER' COMMENT '權限角色 (ADMIN 或 USER)',
+    MemberName VARCHAR(50) NOT NULL COMMENT '會員姓名'
+);
+
+CREATE TABLE IF NOT EXISTS Product (
+    ProductID VARCHAR(20) PRIMARY KEY,
+    ProductName VARCHAR(100) NOT NULL,
+    Price INT NOT NULL,
+    Quantity INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Order` (
+    OrderID VARCHAR(50) PRIMARY KEY,
+    MemberID VARCHAR(50) NOT NULL,
+    Price INT NOT NULL,
+    PayStatus INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (MemberID) REFERENCES Member(MemberID)
+);
+
+CREATE TABLE IF NOT EXISTS OrderDetail (
+    OrderItemSN INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID VARCHAR(50) NOT NULL,
+    ProductID VARCHAR(20) NOT NULL,
+    Quantity INT NOT NULL,
+    StandPrice INT NOT NULL,
+    ItemPrice INT NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
