@@ -69,3 +69,22 @@ BEGIN
     END WHILE;
 
 END;
+
+CREATE PROCEDURE sp_get_member_orderdetail (IN p_member_id VARCHAR (50))
+BEGIN
+  SELECT
+    ord_detail.OrderID,
+    ord_detail.ProductID,
+    pro.ProductName,
+    ord_detail.Quantity,
+    ord_detail.StandPrice,
+    ord_detail.ItemPrice
+  FROM
+    OrderDetail ord_detail
+    LEFT JOIN `Order` ord ON ord_detail.OrderID = ord.OrderID
+    LEFT JOIN Product pro ON ord_detail.ProductID = pro.ProductID
+  WHERE
+    ord.MemberID = p_member_id
+  ORDER BY
+    ord.OrderID DESC;
+END
