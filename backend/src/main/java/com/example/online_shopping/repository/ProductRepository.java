@@ -13,7 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     List<Product> findByQuantityGreaterThan(Integer quantity);
 
-    @Modifying
     @Procedure(procedureName = "sp_add_product")
     void addProductSp(String p_product_id, String p_product_name, Integer p_price, Integer p_quantity);
 }

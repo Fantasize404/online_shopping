@@ -11,7 +11,8 @@
       </div>
       <hr />
       <AddProduct v-if="currentUser.role === 'ADMIN'"></AddProduct>
-      <CreateOrder v-if="currentUser.role === 'USER'" :memberId="currentUser.memberId"></CreateOrder>
+      <CreateOrder :memberId="currentUser.memberId"></CreateOrder>
+      <OrderDetail></OrderDetail>
     </div>
   </div>
 </template>
@@ -21,6 +22,7 @@ import { onMounted, ref } from 'vue';
 import AddProduct from './components/AddProduct.vue'
 import CreateOrder from './components/CreateOrder.vue';
 import Member from './components/Member.vue';
+import OrderDetail from './components/OrderDetail.vue';
 
 const currentUser = ref(null);
 
@@ -34,11 +36,13 @@ onMounted(() => {
 const handleLogin = (userData) => {
   currentUser.value = userData;
   localStorage.setItem('ecommerce_user', JSON.stringify(userData));
+  localStorage.setItem('memberId', userData.memberId);
 };
 
 const handleLogout = () => {
   currentUser.value = null;
   localStorage.removeItem('ecommerce_user');
+  localStorage.removeItem('memberId');
 };
 </script>
 

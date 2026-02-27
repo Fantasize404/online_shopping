@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, String> {
-    @Modifying
     @Procedure(procedureName = "sp_create_order_full")
     void createOrderFullSp(
             String p_order_id,
